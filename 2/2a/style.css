@@ -1,0 +1,534 @@
+/* -------------------- */
+/* RESET */
+/* -------------------- */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Outfit", sans-serif;
+    background: #f7f4f3;
+    color: #551313;
+    overflow-x: hidden;
+}
+
+/* -------------------- */
+/* FIXED ELEMENTS */
+/* -------------------- */
+
+.star {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+
+    font-size: 80px;
+    color: #d91d1d;
+    font-weight: 600;
+}
+
+.future {
+    position: absolute;
+    top: 55px;
+    right: 55px;
+
+    font-size: 12px;
+    text-align: right;
+    line-height: 15px;
+    letter-spacing: 1px;
+    color: #5d2b2b;
+}
+
+.projects {
+    position: absolute;
+    left: 40px;
+    top: 785px;
+
+    font-size: 20px;
+    line-height: 26px;
+    text-decoration: underline;
+    font-weight: 300;
+    color: #5d2b2b;
+}
+
+/* -------------------- */
+/* MAIN CONTAINER */
+/* -------------------- */
+
+.container {
+    width: 68%;
+    margin: auto;
+    padding-top: 55px;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* -------------------- */
+/* HERO */
+/* -------------------- */
+
+.hero {
+    width: 85%;
+}
+
+.hero h1 {
+
+    font-size: 74px;
+    line-height: 76px;
+    font-weight: 300;
+    letter-spacing: -4px;
+    color: #5a1212;
+}
+
+.hero #vc{
+    font-size: 74px;
+    line-height: 76px;
+    font-weight: 300;
+    letter-spacing: -4px;
+    color: #5a1212;
+    display: flex;
+    justify-content: center;
+}
+
+.hero h2 {
+
+    font-size: 74px;
+    line-height: 74px;
+    font-weight: 200;
+    letter-spacing: -4px;
+    color: #b8aaaa;
+    margin-left: 150px;
+}
+
+.hero p {
+
+    width: 340px;
+
+    margin-top: 35px;
+    margin-left: 140px;
+
+    font-size: 13px;
+    line-height: 18px;
+    color: #6a5a5a;
+}
+
+/* -------------------- */
+/* ORANGE CIRCLE */
+/* -------------------- */
+
+.circle {
+
+    width: 78px;
+    height: 50px;
+
+    display: inline-block;
+
+    border-radius: 50px;
+
+    background: linear-gradient(
+        90deg,
+        #2b0909,
+        #782222,
+        #ff5c00
+    );
+
+    vertical-align: middle;
+
+    margin: 0 12px;
+
+    position: relative;
+}
+
+.circle::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:34px;
+    height:34px;
+
+    background:#2a0a0a;
+
+    border-radius:50%;
+
+    left:18px;
+    top:8px;
+}
+
+/* -------------------- */
+/* GALLERY */
+/* -------------------- */
+
+.gallery{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:28px;
+
+    margin-top:45px;
+}
+
+.card{
+
+    flex:1;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:16px;
+
+    height:350px;
+}
+
+.card img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.4s;
+}
+
+.card:hover img{
+
+    transform:scale(1.05);
+}
+
+/* -------------------- */
+/* BOTTOM SECTION */
+/* -------------------- */
+
+.bottom{
+
+    width:100%;
+
+    margin-top:120px;
+    margin-bottom:70px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.bottom h2{
+
+    font-size:72px;
+    line-height:74px;
+    text-align:center;
+
+    letter-spacing:-3px;
+
+    color:#591414;
+
+    font-weight:300;
+}
+
+.bottom h2 span{
+
+    color:#b9a8a8;
+    font-weight:200;
+}
+
+.bottom p{
+
+    width:500px;
+
+    margin-top:35px;
+
+    text-align:center;
+
+    color:#6b6666;
+
+    line-height:20px;
+
+    font-size:13px;
+}
+
+/* -------------------- */
+/* HOVER */
+/* -------------------- */
+
+.hero h1,
+.hero h2,
+.bottom h2{
+
+    cursor:default;
+}
+
+.card{
+
+    transition:.35s;
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+}
+
+/* -------------------- */
+/* SELECTION */
+/* -------------------- */
+
+::selection{
+
+    background:#5a1212;
+    color:white;
+}
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width:1200px){
+
+    .container{
+        width:80%;
+    }
+
+    .hero h1,
+    .hero h2{
+        font-size:60px;
+        line-height:62px;
+    }
+
+    .bottom h2{
+        font-size:60px;
+        line-height:62px;
+    }
+
+    .gallery{
+        gap:20px;
+    }
+
+    .card{
+        height:300px;
+    }
+
+}
+
+
+@media (max-width:992px){
+
+    .container{
+        width:90%;
+    }
+
+    .hero h1,
+    .hero h2{
+
+        font-size:50px;
+        line-height:54px;
+        letter-spacing:-2px;
+    }
+
+    .hero h2{
+
+        margin-left:70px;
+    }
+
+    .hero p{
+
+        margin-left:70px;
+        width:300px;
+    }
+
+    .gallery{
+
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .card{
+
+        flex:0 0 45%;
+        height:300px;
+    }
+
+    .projects{
+
+        position:static;
+        margin:40px;
+        text-align:center;
+    }
+
+    .star{
+
+        font-size:60px;
+        left:20px;
+    }
+
+    .future{
+
+        right:20px;
+    }
+
+}
+
+
+@media (max-width:768px){
+
+    .container{
+
+        width:92%;
+        padding-top:40px;
+    }
+
+    .hero{
+
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .hero h1,
+    .hero h2{
+
+        font-size:42px;
+        line-height:48px;
+        text-align:center;
+        margin:0;
+    }
+
+    .hero p{
+
+        margin:25px 0;
+        width:100%;
+        text-align:center;
+    }
+
+    .gallery{
+
+        flex-direction:column;
+    }
+
+    .card{
+
+        width:100%;
+        height:380px;
+    }
+
+    .bottom{
+
+        margin-top:70px;
+        padding:0 20px;
+    }
+
+    .bottom h2{
+
+        font-size:42px;
+        line-height:48px;
+        letter-spacing:-2px;
+    }
+
+    .bottom p{
+
+        width:100%;
+    }
+
+    .star{
+
+        font-size:45px;
+        left:15px;
+        top:15px;
+    }
+
+    .future{
+
+        font-size:10px;
+        top:25px;
+        right:15px;
+    }
+
+    .projects{
+
+        display:none;
+    }
+
+}
+
+
+@media (max-width:480px){
+
+    .hero h1,
+    .hero h2{
+
+        font-size:32px;
+        line-height:38px;
+    }
+
+    .bottom h2{
+
+        font-size:32px;
+        line-height:38px;
+    }
+
+    .circle{
+
+        width:55px;
+        height:35px;
+    }
+
+    .circle::before{
+
+        width:22px;
+        height:22px;
+        top:6px;
+        left:16px;
+    }
+
+    .card{
+
+        height:300px;
+    }
+
+}
+
+
+/* ==========================================
+   SMOOTH SCROLL
+========================================== */
+
+html{
+
+    scroll-behavior:smooth;
+}
+
+
+/* ==========================================
+   IMAGE IMPROVEMENT
+========================================== */
+
+img{
+
+    display:block;
+}
+
+
+/* ==========================================
+   REMOVE LINK STYLE
+========================================== */
+
+a{
+
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* ==========================================
+   BETTER TEXT RENDERING
+========================================== */
+
+body{
+
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
