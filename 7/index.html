@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================= -->
+  <!-- HEADER -->
+  <!-- ============================================= -->
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="currentColor" />
+          <path d="M7 12.5L10.2 15.5L17 8.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div class="header-inner">
+        <h1>Task Manager</h1>
+      </div>
+    </div>
+
+    <!-- Theme Toggle: uses classList, dataset and setAttribute -->
+    <button id="theme-toggle" class="theme-toggle" data-theme-state="light" aria-pressed="false">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
+        <path d="M12 2.5V4.5M12 19.5V21.5M4.5 12H2.5M21.5 12H19.5M5.6 5.6L7 7M17 17L18.4 18.4M18.4 5.6L17 7M7 17L5.6 18.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span class="toggle-track">
+        <span class="toggle-dot"></span>
+      </span>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      </svg>
+      <span class="toggle-label sr-only">Toggle dark mode</span>
+    </button>
+  </header>
+
+  <main>
+
+    <!-- ============================================= -->
+    <!-- TASK CREATION MODULE -->
+    <!-- ============================================= -->
+    <section class="panel" id="task-creation">
+      <h2>New task</h2>
+      <form id="task-form" novalidate>
+        <div class="field">
+          <label for="task-title">Title</label>
+          <input
+            type="text"
+            id="task-title"
+            name="task-title"
+            placeholder="e.g. Refactor the render pipeline notes"
+            autocomplete="off"
+            value=""
+          />
+        </div>
+
+        <div class="field">
+          <label for="task-category">Category</label>
+          <select id="task-category" name="task-category">
+            <option value="general">General</option>
+            <option value="work">Work</option>
+            <option value="personal">Personal</option>
+            <option value="urgent">Urgent</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Add task
+        </button>
+      </form>
+      <p class="field-error" id="form-error" hidden>Give the task a title before adding it.</p>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- TOOLBAR: search, filter, counters, clear all (bonus) -->
+    <!-- ============================================= -->
+    <section class="panel toolbar" id="toolbar">
+      <div class="field">
+        <label for="task-search">Search</label>
+        <div class="input-with-icon">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <input type="text" id="task-search" placeholder="Search tasks…" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="category-filter">Filter by category</label>
+        <select id="category-filter">
+          <option value="all">All categories</option>
+          <option value="general">General</option>
+          <option value="work">Work</option>
+          <option value="personal">Personal</option>
+          <option value="urgent">Urgent</option>
+        </select>
+      </div>
+
+      <div class="counters">
+        <span class="counter"><strong id="pending-count">0</strong> pending</span>
+        <span class="counter"><strong id="completed-count">0</strong> completed</span>
+      </div>
+
+      <button id="clear-all" class="btn btn-ghost">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 7H20M9 7V5A1 1 0 0 1 10 4H14A1 1 0 0 1 15 5V7M18 7L17.3 19A2 2 0 0 1 15.3 21H8.7A2 2 0 0 1 6.7 19L6 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Clear all
+      </button>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- TASK LIST — event delegation lives on this container -->
+    <!-- ============================================= -->
+    <section class="panel" id="task-list-panel">
+      <h2>Tasks</h2>
+      <ul id="task-list" class="task-list" aria-live="polite">
+        <!-- task cards are injected here by script.js -->
+      </ul>
+      <p class="empty-state" id="empty-state">No tasks yet. Add one above.</p>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- ATTRIBUTES VS PROPERTIES DEMO -->
+    <!-- ============================================= -->
+    <section class="panel" id="attr-vs-prop">
+      <h2>Attributes vs. properties</h2>
+      <p class="panel-note">
+        Type something into the box below, then press the button. The attribute
+        (what's written in the HTML) and the property (the live DOM value) can
+        disagree — that's the whole point.
+      </p>
+
+      <div class="demo-row">
+        <input type="text" id="demo-input" value="starter text" />
+        <button id="demo-check" class="btn btn-secondary">Compare value vs. attribute</button>
+      </div>
+
+      <dl class="demo-output" id="demo-output">
+        <dt>input.value (property)</dt>
+        <dd id="demo-property">—</dd>
+        <dt>input.getAttribute("value") (attribute)</dt>
+        <dd id="demo-attribute">—</dd>
+      </dl>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- EVENT PROPAGATION DEMO -->
+    <!-- ============================================= -->
+    <section class="panel" id="propagation-demo">
+      <h2>Event propagation</h2>
+      <p class="panel-note">
+        Click the button below. Open your console to see the fire order for
+        both bubbling (default) and capturing listeners.
+      </p>
+
+      <div class="propagation-box" id="grandparent" data-role="grandparent">
+        <span class="propagation-tag">Grandparent</span>
+        <div class="propagation-box inner" id="parent" data-role="parent">
+          <span class="propagation-tag">Parent</span>
+          <div class="propagation-box inner" id="child" data-role="child">
+            <span class="propagation-tag">Child</span>
+            <button id="propagation-btn" class="btn btn-secondary">Click me</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="console-echo">
+        <p class="panel-note">Fire order (mirrored from the console, resets on every click):</p>
+        <ol id="propagation-log" class="propagation-log"></ol>
+        <button id="propagation-clear" class="btn btn-ghost">Clear log</button>
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <!-- BROWSER RENDERING PIPELINE -->
+    <!-- ============================================= -->
+    <section class="panel" id="rendering-pipeline">
+      <h2>How a browser turns HTML + CSS into pixels</h2>
+      <p class="panel-note">
+        The task list above exists because the browser ran this pipeline once
+        for this document, and re-runs parts of it every time script.js
+        touches the DOM.
+      </p>
+
+      <ol class="pipeline">
+        <li class="pipeline-step">
+          <span class="pipeline-index">01</span>
+          <h3>Parsing</h3>
+          <p>The browser reads the raw HTML byte stream and turns it into a stream of characters, then structural nodes.</p>
+        </li>
+        <li class="pipeline-arrow" aria-hidden="true">→</li>
+        <li class="pipeline-step">
+          <span class="pipeline-index">02</span>
+          <h3>Tokenization</h3>
+          <p>The character stream is broken into tokens — start tags, end tags, attribute names, text — which the parser consumes one at a time.</p>
+        </li>
+        <li class="pipeline-arrow" aria-hidden="true">→</li>
+        <li class="pipeline-step">
+          <span class="pipeline-index">03</span>
+          <h3>DOM tree</h3>
+          <p>Tokens are assembled into the Document Object Model: a tree of nodes that JavaScript can read and mutate.</p>
+        </li>
+        <li class="pipeline-arrow" aria-hidden="true">→</li>
+        <li class="pipeline-step">
+          <span class="pipeline-index">04</span>
+          <h3>CSSOM tree</h3>
+          <p>CSS goes through the same parse–tokenize cycle, producing the CSS Object Model — every rule, with specificity resolved.</p>
+        </li>
+        <li class="pipeline-arrow" aria-hidden="true">→</li>
+        <li class="pipeline-step">
+          <span class="pipeline-index">05</span>
+          <h3>Render tree</h3>
+          <p>DOM and CSSOM are combined into the render tree: only visible nodes, each carrying its final computed style.</p>
+        </li>
+        <li class="pipeline-arrow" aria-hidden="true">→</li>
+        <li class="pipeline-step">
+          <span class="pipeline-index">06</span>
+          <h3>Layout &amp; paint</h3>
+          <p>The browser computes the geometry of every render tree node, then paints pixels to the screen.</p>
+        </li>
+      </ol>
+    </section>
+
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
